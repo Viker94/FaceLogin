@@ -24,6 +24,7 @@ public class FaceDetection {
         MatOfRect eyes = new MatOfRect();
         eyeDetector.detectMultiScale(roi, eyes); //wykrycie oczu
         MatOfRect mouths = new MatOfRect();
+        System.out.println("Kappa");
         mouthDetector.detectMultiScale(roi,mouths, 1.1, 2, Objdetect.CASCADE_FIND_BIGGEST_OBJECT | Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30), new Size()); //wykrycie ust
         for (Rect rect : eyes.toArray()){
             Core.rectangle(roi, new Point(rect.x, rect.y), new Point(rect.x + rect.width, rect.y + rect.height), new Scalar(0,255, 0));
