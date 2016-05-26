@@ -10,17 +10,19 @@ import org.opencv.objdetect.Objdetect;
  * Created by Marcin on 26.05.2016.
  */
 public class FaceDetection {
+
+    private String openCVPath = "C:/OpenCV/opencv/sources/data/haarcascades/";
+
     public void faceDetection(Mat image) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        CascadeClassifier faceDetector = new CascadeClassifier("C:/OpenCV/opencv/sources/data/haarcascades/haarcascade_frontalface_alt.xml");
-        CascadeClassifier eyeDetector = new CascadeClassifier("C:/OpenCV/opencv/sources/data/haarcascades/haarcascade_eye_tree_eyeglasses.xml");
-        CascadeClassifier mouthDetector = new CascadeClassifier("C:/OpenCV/opencv/sources/data/haarcascades/haarcascade_mcs_mouth.xml");
+        CascadeClassifier faceDetector = new CascadeClassifier(openCVPath + "haarcascade_frontalface_alt.xml");
+        CascadeClassifier eyeDetector = new CascadeClassifier(openCVPath + "haarcascade_eye_tree_eyeglasses.xml");
+        CascadeClassifier mouthDetector = new CascadeClassifier(openCVPath + "haarcascade_mcs_mouth.xml");
         MatOfRect faceDetections = new MatOfRect();
         faceDetector.detectMultiScale(image, faceDetections); //wykrycie twarzy
         Mat roi = image.submat(faceDetections.toArray()[0]);
         MatOfRect eyes = new MatOfRect();
         eyeDetector.detectMultiScale(roi, eyes); //wykrycie oczu
-        System.out.println(eyes.toArray().length);
         MatOfRect mouths = new MatOfRect();
         mouthDetector.detectMultiScale(roi,mouths, 1.1, 2, Objdetect.CASCADE_FIND_BIGGEST_OBJECT | Objdetect.CASCADE_SCALE_IMAGE, new Size(30, 30), new Size()); //wykrycie ust
         for (Rect rect : eyes.toArray()){

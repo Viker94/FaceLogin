@@ -9,7 +9,6 @@ import org.opencv.highgui.Highgui;
 public class Main {
     public static void main(String[] args) {
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        System.out.println(System.getProperty("java.library.path"));
         FaceDetection detection = new FaceDetection();
         Mat image = Highgui.imread("combine_images.jpg");
         //detection.faceDetection(image);
